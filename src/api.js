@@ -5,6 +5,5 @@ export const fetchData = async () =>{
         return data;
     } catch (e) {
         console.log(e)
-    }
-    
+    }   
 }

@@ -16,7 +16,12 @@ const allReducers = combineReducers({
     data
 });
 
-const store = createStore(allReducers, applyMiddleware(sagaMiddleware));
+const store = createStore(
+    allReducers, 
+    applyMiddleware(sagaMiddleware),
+    // window.__REDUX_DEVTOOLS_EXTENSION__&&
+    //     window.__REDUX_DEVTOOLS_EXTENSION__(),
+    );
 
 sagaMiddleware.run(mySaga);
 
