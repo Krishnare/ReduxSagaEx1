@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { call, put, takeEvery, select, cancel } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { axios } from 'axios';
 
@@ -10,15 +10,17 @@ const getPage = state => state.nextPage
 function* fetchProducts(action){
   try {
     const page = yield select(getPage)
-    const data = yield call(fetchData, page);
-    console.log(page)
-    yield put(receiveApiData(data));
+    const dataDetail = yield call(fetchData, page);
+    console.log(page);
+    yield put(receiveApiData(dataDetail));
   } catch (e){
     console.log(e)
   }
 };
 function* clickUpdateData(){
-  yield put(clickStoreData(imageId));
+ const watcher =  yield call(delay, 5000);
+  yield put(clickStoreData());
+  yield cancel(watcher);
 }
 function* mySaga() {
   yield takeEvery(REQUEST_API_DATA, fetchProducts);
